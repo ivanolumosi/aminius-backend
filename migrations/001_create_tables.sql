@@ -5,7 +5,7 @@
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
-go
+
 -- Agent Table
 CREATE TABLE agent (
     agent_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

@@ -4,29 +4,28 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const dbConfig = {
-    user: process.env.DB_USER as string,
-    password: process.env.DB_PASSWORD as string,
-    host: process.env.DB_SERVER as string,
-    database: process.env.DB_DATABASE as string,
-    port: 5432,
-    max: 10, // max number of clients in the pool
-    min: 0,  // min number of clients in the pool
-    idleTimeoutMillis: 30000,
-    ssl: {
-        require: true,
-        rejectUnauthorized: false
-    }
-};
-
-// Alternative: Use connection string directly
 // const dbConfig = {
-//     connectionString: process.env.DATABASE_URL as string,
+//     user: process.env.DB_USER as string,
+//     password: process.env.DB_PASSWORD as string,
+//     host: process.env.DB_SERVER as string,
+//     database: process.env.DB_DATABASE as string,
+//     port: 5432,
+//     max: 10, 
+//         min: 0,  
+//     idleTimeoutMillis: 30000,
 //     ssl: {
 //         require: true,
 //         rejectUnauthorized: false
 //     }
 // };
+
+const dbConfig = {
+    connectionString: process.env.DATABASE_URL as string,
+    ssl: {
+        require: true,
+        rejectUnauthorized: false
+    }
+};
 
 let pool: Pool | null = null;
 

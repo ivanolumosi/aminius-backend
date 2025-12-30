@@ -1,0 +1,111 @@
+### 1. Add New Prospect
+POST http://localhost:3000/api/prospect
+Content-Type: application/json
+
+{
+  "AgentId": "7b407c2d-3145-40b0-8c47-1d6f62351b2c",
+  "FirstName": "John",
+  "Surname": "Mwangi",
+  "LastName": "Doe",
+  "PhoneNumber": "0712345678",
+  "Email": "john.doe@example.com",
+  "Notes": "Interested in motor insurance, current policy expires in 2 months"
+}
+
+### 2. Add External Policy to Prospect
+POST http://localhost:3000/api/prospect/policy
+Content-Type: application/json
+
+{
+  "ProspectId": "a5400e8a-bb0d-4fba-b153-81841bfc56b5",
+  "CompanyName": "AAR Insurance",
+  "PolicyNumber": "POL-2024-001234",
+  "PolicyType": "Motor Insurance",
+  "ExpiryDate": "2025-03-15",
+  "Notes": "Current comprehensive motor policy, expires soon"
+}
+
+### 3. Update Prospect
+PUT http://localhost:3000/api/prospect/prospect-uuid-here
+Content-Type: application/json
+
+{
+  "FirstName": "John",
+  "Surname": "Mwangi",
+  "LastName": "Doe",
+  "PhoneNumber": "0712345679",
+  "Email": "john.doe.updated@example.com",
+  "Notes": "Updated contact information - interested in multiple policies"
+}
+
+### 4. Delete Prospect
+DELETE http://localhost:3000/api/prospect/prospect-uuid-here
+
+### 5. Convert Prospect to Client
+POST http://localhost:3000/api/prospect/prospect-uuid-here/convert-to-client
+Content-Type: application/json
+
+{
+  "Address": "123 Kimathi Street, Nairobi",
+  "NationalId": "12345678",
+  "DateOfBirth": "1985-06-15"
+}
+
+### 6. Get Agent Prospects
+GET http://localhost:3000/api/agent/7b407c2d-3145-40b0-8c47-1d6f62351b2c/prospects
+
+### 7. Get Prospect Policies
+GET http://localhost:3000/api/prospect/prospect-uuid-here/policies
+
+### 8. Get Prospect Statistics
+GET http://localhost:3000/api/agent/7b407c2d-3145-40b0-8c47-1d6f62351b2c/prospect-statistics
+
+### 9. Get Expiring Prospect Policies (Default 30 days)
+GET http://localhost:3000/api/agent/7b407c2d-3145-40b0-8c47-1d6f62351b2c/expiring-prospect-policies
+
+### 10. Get Expiring Prospect Policies (Custom days ahead)
+GET http://localhost:3000/api/agent/7b407c2d-3145-40b0-8c47-1d6f62351b2c/expiring-prospect-policies?daysAhead=60
+
+### 11. Auto-Create Reminders for Expiring Prospect Policies
+POST http://localhost:3000/api/agent/7b407c2d-3145-40b0-8c47-1d6f62351b2c/prospect-reminders/auto-create
+Content-Type: application/json
+
+### Example Success Responses:
+
+### Add Prospect Response:
+# {
+#   "Success": true,
+#   "Message": "Prospect added successfully",
+#   "ProspectId": "uuid-generated-here"
+# }
+
+### Prospect Statistics Response:
+# {
+#   "TotalProspects": 25,
+#   "ProspectsWithPolicies": 18,
+#   "ExpiringIn7Days": 3,
+#   "ExpiringIn30Days": 8,
+#   "ExpiredPolicies": 2
+# }
+
+### Expiring Policies Response:
+# [
+#   {
+#     "ProspectId": "uuid-here",
+#     "FullName": "John Mwangi Doe",
+#     "PhoneNumber": "0712345678",
+#     "Email": "john.doe@example.com",
+#     "PolicyType": "Motor Insurance",
+#     "CompanyName": "AAR Insurance",
+#     "ExpiryDate": "2025-03-15T00:00:00.000Z",
+#     "DaysUntilExpiry": 15,
+#     "Priority": "Medium"
+#   }
+# ]
+
+### Auto-Create Reminders Response:
+# {
+#   "Success": true,
+#   "Message": "Created 5 reminder(s) for expiring prospect policies",
+#   "RemindersCreated": 5
+# }

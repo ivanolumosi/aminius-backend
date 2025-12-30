@@ -38,7 +38,6 @@ export class ReminderService {
                 throw new Error('Valid Agent ID is required');
             }
 
-            // FIXED: Validate reminder type against expanded list
             if (!this.isValidReminderType(reminderData.ReminderType)) {
                 throw new Error(`Invalid reminder type: ${reminderData.ReminderType}`);
             }

@@ -1,7 +1,7 @@
 -- ===========================================================
 -- Get Policy Statistics
 -- ===========================================================
-CREATE OR REPLACE FUNCTION sp_get_policy_statistics(p_agent_id UUID)
+CREATE OR REPLACE FUNCTION sp_get_policy_statistics1(p_agent_id UUID)
 RETURNS TABLE(
     active_policies BIGINT,
     expired_policies BIGINT,
@@ -496,7 +496,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Get Today's Appointments
-CREATE OR REPLACE FUNCTION sp_get_today_appointments(p_agent_id UUID)
+CREATE OR REPLACE FUNCTION sp_get_today_appointments1(p_agent_id UUID)
 RETURNS TABLE (
     appointment_id UUID,
     client_id UUID,
