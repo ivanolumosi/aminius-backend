@@ -15,33 +15,47 @@ import {
 const router = Router();
 
 // =========================
-// Prospect Management
+// IMPORTANT: Since this is mounted at /api/prospects,
+// all routes here are relative to that base path
 // =========================
-router.post("/prospect", addProspect);
-router.put("/prospect/:prospectId", updateProspect);
-router.delete("/prospect/:prospectId", deleteProspect);
-router.get("/agent/:agentId/prospects", getAgentProspects);
 
 // =========================
-// Prospect Policies
+// Agent-level operations (most specific first)
 // =========================
-router.post("/prospect/policy", addProspectPolicy);
-router.get("/prospect/:prospectId/policies", getProspectPolicies);
+// GET /api/prospects/agent/:agentId/statistics
+router.get("/agent/:agentId/statistics", getProspectStatistics);
+
+// GET /api/prospects/agent/:agentId/expiring-policies
+router.get("/agent/:agentId/expiring-policies", getExpiringProspectPolicies);
+
+// POST /api/prospects/agent/:agentId/reminders/auto-create
+router.post("/agent/:agentId/reminders/auto-create", autoCreateProspectReminders);
+
+// GET /api/prospects/agent/:agentId (list all prospects for agent)
+router.get("/agent/:agentId", getAgentProspects);
 
 // =========================
-// Prospect Conversion
+// Prospect-level operations
 // =========================
-router.post("/prospect/:prospectId/convert-to-client", convertProspectToClient);
+// POST /api/prospects/policy (add policy to a prospect)
+router.post("/policy", addProspectPolicy);
+
+// GET /api/prospects/:prospectId/policies
+router.get("/:prospectId/policies", getProspectPolicies);
+
+// POST /api/prospects/:prospectId/convert
+router.post("/:prospectId/convert", convertProspectToClient);
+
+// PUT /api/prospects/:prospectId
+router.put("/:prospectId", updateProspect);
+
+// DELETE /api/prospects/:prospectId
+router.delete("/:prospectId", deleteProspect);
 
 // =========================
-// Analytics & Statistics
+// Base prospect operations
 // =========================
-router.get("/agent/:agentId/prospect-statistics", getProspectStatistics);
-router.get("/agent/:agentId/expiring-prospect-policies", getExpiringProspectPolicies);
-
-// =========================
-// Auto Reminders
-// =========================
-router.post("/agent/:agentId/prospect-reminders/auto-create", autoCreateProspectReminders);
+// POST /api/prospects (create new prospect)
+router.post("/", addProspect);
 
 export default router;
