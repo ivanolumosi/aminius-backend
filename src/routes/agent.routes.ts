@@ -18,43 +18,47 @@ import {
 const router = Router();
 
 // =========================
-// Agent Profile
-// =========================
-router.post("/agent", upsertAgentProfile);
-router.get("/agent/:agentId", getAgentProfile);
-
-// =========================
-// Settings
-// =========================
-router.put("/agent/:agentId/settings", updateAgentSettings);
-
-// =========================
-// Authentication
-// =========================
-router.post("/agent/authenticate", authenticateAgent);
-router.post("/agent/login", loginAgent);
-
-// =========================
-// Registration
-// =========================
-router.post("/agent/register", registerAgent);
-
-// =========================
-// Password Management
-// =========================
-router.post("/agent/:agentId/change-password", changeAgentPassword);
-router.post("/agent/password-reset/request", requestPasswordReset);
-router.post("/agent/:agentId/password-reset", resetAgentPassword);
-router.post("/agent/password-reset/temporary", sendTemporaryPassword);
-
-// =========================
-// Data Lookups
+// Data Lookups (no params)
 // =========================
 router.get("/insurance-companies", getInsuranceCompanies);
 router.get("/policy-types", getPolicyTypes);
 
 // =========================
-// Navbar Badge Counts
+// Authentication (specific routes BEFORE parameterized routes)
+// =========================
+router.post("/agent/authenticate", authenticateAgent);
+router.post("/agent/login", loginAgent);
+
+// =========================
+// Registration (specific route)
+// =========================
+router.post("/agent/register", registerAgent);
+
+// =========================
+// Password Management (specific routes BEFORE parameterized routes)
+// =========================
+router.post("/agent/password-reset/request", requestPasswordReset);
+router.post("/agent/password-reset/temporary", sendTemporaryPassword);
+
+// =========================
+// Agent Profile (basic CRUD)
+// =========================
+router.post("/agent", upsertAgentProfile);
+router.get("/agent/:agentId", getAgentProfile);
+
+// =========================
+// Settings (parameterized route)
+// =========================
+router.put("/agent/:agentId/settings", updateAgentSettings);
+
+// =========================
+// Password Management (parameterized routes)
+// =========================
+router.post("/agent/:agentId/change-password", changeAgentPassword);
+router.post("/agent/:agentId/password-reset", resetAgentPassword);
+
+// =========================
+// Navbar Badge Counts (parameterized route)
 // =========================
 router.get("/agent/:agentId/navbar-counts", getNavbarBadgeCounts);
 
