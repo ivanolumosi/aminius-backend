@@ -1,7 +1,7 @@
 services:
   - type: web
     name: amin-insurance-backend
-    rootDir: .
+    rootDir: aminius-backend
     buildCommand: "npm install && npm run build"
     startCommand: "npm start"
     env: node
